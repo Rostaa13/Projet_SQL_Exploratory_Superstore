@@ -60,13 +60,34 @@ FROM sales_clean
 GROUP BY category
 ORDER BY total_sales DESC;
 
--- Top 10 clients par profit
+-- Top 10 clients les plus rentables
 SELECT customer_name, SUM(profit) AS total_profit
 FROM sales_clean
 GROUP BY customer_name
 ORDER BY total_profit DESC
 FETCH FIRST 10 ROWS ONLY;
+
+-- Profit moyen par segment
+SELECT segment, ROUND(AVG(profit), 2) AS avg_profit
+FROM sales_clean
+GROUP BY segment;
+
+-- Performance régionale
+SELECT region, SUM(sales) AS total_sales, SUM(profit) AS total_profit
+FROM sales_clean
+GROUP BY region
+ORDER BY total_profit DESC;
+
 ```
+Principaux KPIs
+|Indicateur |	Description |	exemple
+|------|--------------|---------------|
+|Total Sales |	Total global des ventes |	2.3M $|
+|Average Profit Margin |	Profit moyen / Vente	| 12.5%|
+|Top Region |	Région la plus rentable |	West|
+|Top Customer |	Client le plus rentable |	Sean Miller|
+
+
 ## 💡 3. Insights & Recommandations
 
 Fichier : sql/03_insights_queries.sql
@@ -116,8 +137,6 @@ Documentation claire et structurée sur GitHub
 SQL Developer (Oracle)
 
 Power BI / Excel
-
-ReportLab (Python) pour la génération du rapport PDF
 
 Git & GitHub pour la gestion du versioning
 
